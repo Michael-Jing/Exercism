@@ -1,7 +1,5 @@
-#![feature(test)]
 extern crate test;
 use sublist::{sublist, Comparison};
-use test::Bencher;
 
 #[test]
 fn empty_equals_empty() {
@@ -70,14 +68,14 @@ fn sublist_early_in_huge_list() {
     assert_eq!(Comparison::Sublist, sublist(&[3, 4, 5], &huge));
 }
 
-#[bench]
-//#[ignore]
-fn huge_sublist_not_in_huge_list(b: &mut Bencher) {
+#[test]
+#[ignore]
+fn huge_sublist_not_in_huge_list() {
     let v1: Vec<u64> = (10..1_000_001).collect();
     let v2: Vec<u64> = (1..1_000_000).collect();
 
-    // assert_eq!(Comparison::Unequal, sublist(&v1, &v2));
-    b.iter(|| sublist(&v1, &v2));
+    assert_eq!(Comparison::Unequal, sublist(&v1, &v2));
+    // b.iter(|| sublist(&v1, &v2));
 }
 
 #[test]
