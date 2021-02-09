@@ -41,25 +41,29 @@ pub fn sublist<T: PartialEq>(_first_list: &[T], _second_list: &[T]) -> Compariso
     let (la, lb) = (_first_list.len(), _second_list.len());
     match (la, lb) {
         (x, y) if x == y => {
-            if _first_list
-                .iter()
-                .zip(_second_list.iter())
-                .all(|(a, b)| *a == *b)
-            {
+            if _first_list.iter().eq(_second_list.iter()) {
                 Comparison::Equal
             } else {
                 Comparison::Unequal
             }
         }
         (x, y) if x > y => {
-            if pattern_search(_second_list, _first_list) {
+            if _second_list.is_empty()
+                || _first_list
+                    .windows(y)
+                    .any(|w| w.iter().eq(_second_list.iter()))
+            {
                 Comparison::Superlist
             } else {
                 Comparison::Unequal
             }
         }
         (x, y) if x < y => {
-            if pattern_search(_first_list, _second_list) {
+            if _first_list.is_empty()
+                || _second_list
+                    .windows(x)
+                    .any(|w| w.iter().eq(_first_list.iter()))
+            {
                 Comparison::Sublist
             } else {
                 Comparison::Unequal
