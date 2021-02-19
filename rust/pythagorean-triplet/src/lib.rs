@@ -1,16 +1,17 @@
+use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use std::collections::HashSet;
 
 pub fn find(sum: u32) -> HashSet<[u32; 3]> {
-    (1..sum / 3)
-        .map(|a| {
-            let b_plus_c = sum - a;
-            let b = (b_plus_c * b_plus_c - a * a) / 2 / b_plus_c;
-            let c = b_plus_c - b;
-            [a, b, c]
-        })
-        .filter(|v| {
-            let [a, b, c] = v;
-            a < b && b < c && a * a + b * b == c * c
+    (1_u32..sum / 3_u32)
+        .into_par_iter()
+        .filter_map(|a| {
+            let b_plus_c: u32 = sum - a;
+            let b: u32 = (b_plus_c.pow(2) - a.pow(2)) / (2 * b_plus_c);
+            let c: u32 = b_plus_c - b;
+            match a < b && (b_plus_c.pow(2) - a.pow(2)) % (2 * b_plus_c) == 0 {
+                true => Some([a, b, c]),
+                false => None,
+            }
         })
         .collect::<HashSet<[u32; 3]>>()
 }

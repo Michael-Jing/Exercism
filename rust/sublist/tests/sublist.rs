@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+extern crate test;
+>>>>>>> b1d57c6d977ecfbb12486d758e999a087480e21f
 use sublist::{sublist, Comparison};
 
 #[test]
@@ -74,6 +78,10 @@ fn huge_sublist_not_in_huge_list() {
     let v2: Vec<u64> = (1..1_000_000).collect();
 
     assert_eq!(Comparison::Unequal, sublist(&v1, &v2));
+<<<<<<< HEAD
+=======
+    // b.iter(|| sublist(&v1, &v2));
+>>>>>>> b1d57c6d977ecfbb12486d758e999a087480e21f
 }
 
 #[test]

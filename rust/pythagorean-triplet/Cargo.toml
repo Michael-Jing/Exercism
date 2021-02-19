@@ -1,4 +1,8 @@
 [dependencies]
+<<<<<<< HEAD
+=======
+rayon = "*"
+>>>>>>> b1d57c6d977ecfbb12486d758e999a087480e21f
 
 [package]
 edition = "2018"
